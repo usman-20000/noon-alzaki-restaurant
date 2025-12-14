@@ -9,11 +9,19 @@ import ProductCard from "./src/assets/utils/ProductCard";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
+type Product = {
+  name: string;
+  price: number;
+  image: string;
+  detail: string;
+};
+
+
 export default function Home() {
 
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
-  const [products, setProduts] = useState([]);
+  const [products, setProduts] = useState<Product[]>([]);
 
   const override = {
     display: "block",

@@ -1,7 +1,21 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 
-export default function ProductCard({ image, name, detail, price }) {
+type ProductCardProps = {
+  name: string;
+  image: string;
+  category: String;
+  detail: string;
+  price: number;
+};
+
+export default function ProductCard({
+  name,
+  image,
+  category,
+  detail,
+  price,
+}: ProductCardProps) {
   return (
     <div className="
       bg-white rounded-xl shadow-md p-4 
@@ -34,7 +48,11 @@ export default function ProductCard({ image, name, detail, price }) {
           <Star
             key={i}
             size={12}
-            className={i < 4.5 ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}
+            className={
+              i < 4
+                ? "fill-yellow-400 text-yellow-400"
+                : "text-gray-300"
+            }
           />
         ))}
       </div>
@@ -46,8 +64,8 @@ export default function ProductCard({ image, name, detail, price }) {
         </span>
 
         <button className="
-          bg-[#800020] text-white px-2 sm:px-2 py-2 
-          text-xs sm:text-xs rounded-md 
+          bg-[#800020] text-white px-2 py-2 
+          text-xs rounded-md 
           hover:bg-[#5c0017] transition
         ">
           Add

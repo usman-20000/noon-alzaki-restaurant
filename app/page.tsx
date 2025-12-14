@@ -14,6 +14,7 @@ type Product = {
   price: number;
   image: string;
   detail: string;
+  category: string;
 };
 
 

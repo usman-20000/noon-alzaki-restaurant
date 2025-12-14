@@ -19,8 +19,8 @@ type Product = {
 
 export default function Home() {
 
-  const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [category, setCategory] = useState<any>([]);
   const [products, setProduts] = useState<Product[]>([]);
 
   const override = {

@@ -14,8 +14,8 @@ type CategoryProps = {
 
 export default function Category({ categories }: CategoryProps) {
     return (
-        <div className="flex flex-col w-[95%] ml-4 mt-2 lg:mt-4">
-            <div className="flex flex-row items-center gap-2 lg:gap-4 overflow-x-auto scrollbar-none py-2">
+        <div className="flex flex-col w-[calc(98%-1rem)] ml-4 mt-2 lg:mt-4">
+            <div className="flex flex-row items-center gap-2 lg:gap-4 overflow-x-auto no-scrollbar py-2">
                 {categories.map((item) => (
                     <div key={item._id} className="flex flex-col items-center min-w-[100px]">
                         <div className="p-4 bg-white shadow-lg rounded-md flex items-center justify-center shadow-md">
@@ -27,7 +27,7 @@ export default function Category({ categories }: CategoryProps) {
                                 className="hover:scale-[1.03] transition-all cursor-pointer"
                             />
                         </div>
-                        <span className="text-black font-semibold text-center mt-2">
+                        <span className="text-black font-semibold text-center mt-2 line-clamp-2 h-12">
                             {item.category}
                         </span>
                     </div>

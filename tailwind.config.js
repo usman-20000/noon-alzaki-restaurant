@@ -11,13 +11,29 @@ module.exports = {
         foreground: "var(--foreground)",
         accent: "var(--accent)",
         secondary: "var(--secondary)",
+
+        // Brand colors
+        primary: "#800020",    // Maroon
+        gold: "#FFD700",       // Gold Accent
+        cream: "#F5F0E6",      // Cream Background
+        charcoal: "#1A1A1A",   // Deep Charcoal
+        softgray: "#C9C8C3",   // Soft Gray
       },
     },
   },
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          /* Firefox */
+          'scrollbar-width': 'none',
+          /* IE and Edge */
+          '-ms-overflow-style': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
+      })
+    },
+  ],
 };
-
-// Primary (Maroon): #800020
-// Gold Accent: #FFD700
-// Cream Background: #F5F0E6
-// Deep Charcoal: #1A1A1A
-// Soft Gray: #C9C8C3

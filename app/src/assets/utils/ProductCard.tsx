@@ -4,7 +4,6 @@ import { Star } from "lucide-react";
 type ProductCardProps = {
   name: string;
   image: string;
-  category: String;
   detail: string;
   price: number;
 };
@@ -12,7 +11,6 @@ type ProductCardProps = {
 export default function ProductCard({
   name,
   image,
-  category,
   detail,
   price,
 }: ProductCardProps) {
@@ -20,7 +18,7 @@ export default function ProductCard({
     <div className="
       bg-white rounded-xl shadow-md p-4 
       w-full 
-      hover:scale-[1.03] transition-all cursor-pointer
+      hover:scale-[1.03] transition-all 
     ">
       {/* Image */}
       <div className="relative w-full h-28 sm:h-28 md:h-34 rounded-lg overflow-hidden">
@@ -60,7 +58,7 @@ export default function ProductCard({
       {/* Price + Add button */}
       <div className="flex items-center justify-between mt-2">
         <span className="text-sm sm:text-sm lg:text-lg font-bold text-green-700">
-          ${price}
+          SAR{price}
         </span>
 
         <button className="

@@ -19,7 +19,8 @@ export default function SearchBar({ onSearch = () => {} }: any) {
         placeholder="Search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="px-3 py-2 focus: outline-none w-full placeholder-gray-400 text-black"
+        className="px-3 py-2 focus: outline-none w-full placeholder-gray-400 text-black
+        "
       />
 
       <button

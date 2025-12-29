@@ -1,4 +1,6 @@
+"use-client"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export type CategoryType = {
@@ -13,11 +15,13 @@ type CategoryProps = {
 };
 
 export default function Category({ categories }: CategoryProps) {
+    const router = useRouter();
     return (
         <div className="flex flex-col w-[calc(98%-1rem)] ml-4 mt-2 lg:mt-4">
             <div className="flex flex-row items-center gap-2 lg:gap-4 overflow-x-auto no-scrollbar py-2">
                 {categories.map((item) => (
-                    <div key={item._id} className="flex flex-col items-center min-w-[100px]">
+                    <div key={item._id} className="flex flex-col items-center min-w-[100px]"
+                        onClick={() => router.push(`/Product/${item.category}`)}>
                         <div className="p-4 bg-white shadow-lg rounded-md flex items-center justify-center shadow-md">
                             <Image
                                 src={item.image}

@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ProductCardProps = {
   name: string;
   image: string;
   detail: string;
+  category: string;
   price: number;
 };
 
@@ -14,6 +16,7 @@ export default function ProductCard({
   detail,
   price,
 }: ProductCardProps) {
+
   return (
     <div className="
       bg-white rounded-xl shadow-md p-4 

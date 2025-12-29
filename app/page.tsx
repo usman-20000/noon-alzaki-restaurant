@@ -64,7 +64,6 @@ export default function Home() {
         />
       </div>
 
-      {/* Loading State */}
       {loading ? (
         <div className="flex flex-col items-center justify-center min-h-[50vh] w-full bg-[#F5F0E6] p-8">
           <ClipLoader

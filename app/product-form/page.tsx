@@ -18,6 +18,8 @@ export default function ProductUploadForm() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [image2, setImage2] = useState<string>('');
+  const [publicId, setPublicId] = useState<string>('');
 
   // Fetch categories from server
   useEffect(() => {
@@ -50,52 +52,100 @@ export default function ProductUploadForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!file || !selectedCategory || !name.trim() || !detail.trim() || price === "") {
-      return alert("All fields are required");
-    }
-
-    const parsedPrice = Number(price);
-    if (isNaN(parsedPrice) || parsedPrice < 0) {
-      return alert("Invalid price");
+    if (!name || !detail || !selectedCategory || price === "" || !image2 || !publicId) {
+      alert("All fields are required");
+      return;
     }
 
     setLoading(true);
 
     try {
-      const base64File = await getBase64(file);
-
-      const res = await fetch(`${Api_Url}/upload-product`, {
+      const res = await fetch(`${Api_Url}/upload-product2`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
-          detail: detail.trim(),
-          price: parsedPrice,
+          name,
           category: selectedCategory._id,
-          image: base64File,
-        }),
+          detail,
+          price: Number(price),
+          image: image2,
+          public_id: publicId
+        })
       });
 
       const data = await res.json();
 
       if (data.success) {
-        alert("Product uploaded successfully!");
-        setFile(null);
+        alert("Product uploaded successfully");
+
         setName("");
         setDetail("");
         setPrice("");
+        setImage2("");
+        setPublicId("");
         setSelectedCategory(null);
-        setImageUrl(data.image_url);
+        setFile(null);
+        setPreviewUrl(null);
       } else {
         alert(data.error || "Upload failed");
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong during upload");
+      alert("Server error");
     } finally {
       setLoading(false);
     }
   };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (!file || !selectedCategory || !name.trim() || !detail.trim() || price === "") {
+  //     return alert("All fields are required");
+  //   }
+
+  //   const parsedPrice = Number(price);
+  //   if (isNaN(parsedPrice) || parsedPrice < 0) {
+  //     return alert("Invalid price");
+  //   }
+
+  //   setLoading(true);
+
+  //   try {
+  //     const base64File = await getBase64(file);
+
+  //     const res = await fetch(`${Api_Url}/upload-product2`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         name: name.trim(),
+  //         detail: detail.trim(),
+  //         price: parsedPrice,
+  //         category: selectedCategory._id,
+  //         image: image2,
+  //         public_id: publicId
+  //       }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (data.success) {
+  //       alert("Product uploaded successfully!");
+  //       setFile(null);
+  //       setName("");
+  //       setDetail("");
+  //       setPrice("");
+  //       setSelectedCategory(null);
+  //       setImageUrl(data.image_url);
+  //     } else {
+  //       alert(data.error || "Upload failed");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Something went wrong during upload");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="p-4 max-w-md mx-auto">
@@ -131,9 +181,25 @@ export default function ProductUploadForm() {
             </option>
           ))}
         </select>
+        <input
+          type="text"
+          value={image2}
+          onChange={(e) => setImage2(e.target.value)}
+          placeholder="Product Image"
+          className="border p-2 rounded"
+        />
+
+        <input
+          type="text"
+          value={publicId}
+          onChange={(e) => setPublicId(e.target.value)}
+          placeholder="publid_id"
+          className="border p-2 rounded"
+        />
 
         <input
           type="number"
+          step="0.01"
           min="0"
           value={price}
           onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
@@ -141,23 +207,23 @@ export default function ProductUploadForm() {
           className="border p-2 rounded"
         />
 
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
           className="border p-2 rounded"
-        />
+        /> */}
 
-        {previewUrl && (
+        {/* {previewUrl && (
           <div className="mt-2">
             <p className="text-sm font-semibold">Image Preview:</p>
             <img src={previewUrl} alt="Preview" className="w-48 h-48 object-cover mt-1 rounded" />
           </div>
-        )}
+        )} */}
 
         <button
           type="submit"
-          disabled={loading || !file || !selectedCategory || !name.trim() || !detail.trim() || price === ""}
+          disabled={loading || !selectedCategory || !name.trim() || !detail.trim() || price === ""}
           className={`p-2 rounded text-white ${loading ? "bg-gray-400" : "bg-blue-500"}`}
         >
           {loading ? "Uploading..." : "Upload Product"}

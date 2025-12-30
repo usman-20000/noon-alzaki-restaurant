@@ -5,32 +5,37 @@ import Header from "@/app/src/assets/utils/header";
 import ProductCard from "@/app/src/assets/utils/ProductCard";
 import { Api_Url } from "@/app/src/assets/Data";
 import { ClipLoader } from "react-spinners";
+import Category from "@/app/src/assets/utils/Category";
 
 export default function ProductPage({ params }) {
+  
   const { slug } = use(params);    
+  const title = slug.replace(/-/g, ' ');
 
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
 
+  useEffect(() => {
+    const fetchCategory = async () => {
       try {
-        const res = await fetch(`${Api_Url}/product/${slug}`);
-        if (!res.ok) throw new Error("Failed to fetch products");
+        setLoading(true);
+        const res = await fetch(`${Api_Url}/category`);
+        const res1 = await fetch(`${Api_Url}/product/${title}`);
         const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
+        const data1 = await res1.json();
+        setCategory(data);
+        setProducts(data1);
+      } catch (error) {
+        console.log("Error fetching category/products:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchCategory();
   }, [slug]);
 
   return (
@@ -47,8 +52,12 @@ export default function ProductPage({ params }) {
         <div className="text-gray-600 mt-6">No products found.</div>
       ) : (
         <main className="flex flex-col items-center sm:items-start bg-[#F5F0E6] min-h-screen w-full px-4 sm:px-6 lg:px-10 pb-10">
+                  <span className="text-[20px] sm:text-[24px] font-bold mb-3 text-[#800020] mt-4 w-full text-left">
+                    Our Categories
+                  </span>
+                  <Category categories={category} />
           <span className="text-[20px] sm:text-[24px] font-bold mb-3 text-[#800020] mt-4 w-full text-left">
-            Our Products — {slug}
+            Our Products
           </span>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">

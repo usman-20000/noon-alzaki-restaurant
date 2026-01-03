@@ -55,7 +55,7 @@ export default function ProductPage({ params }) {
                   <span className="text-[20px] sm:text-[24px] font-bold mb-3 text-[#800020] mt-4 w-full text-left">
                     Our Categories
                   </span>
-                  <Category categories={category} />
+                  <Category categories={category} selectedCat={title} />
           <span className="text-[20px] sm:text-[24px] font-bold mb-3 text-[#800020] mt-4 w-full text-left">
             Our Products
           </span>

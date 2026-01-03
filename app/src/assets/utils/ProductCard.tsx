@@ -61,7 +61,7 @@ export default function ProductCard({
       {/* Price + Add button */}
       <div className="flex items-center justify-between mt-2">
         <span className="text-sm sm:text-sm lg:text-lg font-bold text-green-700">
-          SAR{price}
+          SAR {price}
         </span>
 
         <button className="
